@@ -1,8 +1,8 @@
-private readonly IConfigurationRoot _configurationRoot;
+public IConfiguration Configuration { get; }
 
- public Startup(IWebHostEnvironment webHostEnvironment)
+ public Startup(IConfiguration configuration)
 {           
-    _configurationRoot = new ConfigurationBuilder().SetBasePath(webHostEnvironment.ContentRootPath).AddJsonFile("appsettings.json").Build();
+       Configuration = configuration;
 }
 
 public void ConfigureServices(IServiceCollection services)
@@ -10,10 +10,10 @@ public void ConfigureServices(IServiceCollection services)
   //GOOGLE
  services.AddAuthentication().AddGoogle(options =>
  {
-   var clientid = _configurationRoot.GetSection("Authentication").GetSection("Google").GetValue(typeof(string), "ClientId");
+   var clientid = Configuration.GetSection("Authentication").GetSection("Google").GetValue(typeof(string), "ClientId");
    options.ClientId = clientid.ToString();
   
-   var clientsecret = _configurationRoot.GetSection("Authentication").GetSection("Google").GetValue(typeof(string), "ClientSecret");
+   var clientsecret = Configuration.GetSection("Authentication").GetSection("Google").GetValue(typeof(string), "ClientSecret");
    options.ClientSecret = clientsecret.ToString();
   
   });
