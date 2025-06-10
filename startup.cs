@@ -10,11 +10,11 @@ public void ConfigureServices(IServiceCollection services)
   //GOOGLE
  services.AddAuthentication().AddGoogle(options =>
  {
-   var clientid = Configuration.GetSection("Authentication").GetSection("Google").GetValue(typeof(string), "ClientId");
-   options.ClientId = clientid.ToString();
+   var clientid = Configuration.GetValue<string>("Authentication:Google:ClientId");
+   options.ClientId = clientid;
   
-   var clientsecret = Configuration.GetSection("Authentication").GetSection("Google").GetValue(typeof(string), "ClientSecret");
-   options.ClientSecret = clientsecret.ToString();
+   var clientsecret = Configuration.GetValue<string>("Authentication:Google:ClientSecret");
+   options.ClientSecret = clientsecret;
   
   });
 }
